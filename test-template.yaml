@@ -1,0 +1,18 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterTemplate
+metadata:
+  name: unit-test-template
+spec:
+  template:
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: $(workload.metadata.name)$-tests
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: test-container
+              image: $(sources.image.url)$
+              command: ["dotnet", "test"]

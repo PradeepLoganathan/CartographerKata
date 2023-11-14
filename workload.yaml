@@ -1,0 +1,15 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: my-dotnet-app
+  labels:
+    app: dotnet-app
+spec:
+  source:
+    git:
+      url: "https://github.com/PradeepLoganathan/AccuWeather.git"
+      ref:
+        branch: main
+  params:
+    - name: image
+      value: "clstrappsrepo.azurecr.io/my-dotnet-app:latest"

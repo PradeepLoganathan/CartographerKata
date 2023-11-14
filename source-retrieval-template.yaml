@@ -1,0 +1,17 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterSourceTemplate
+metadata:
+  name: git-source-template
+spec:
+  urlPath: .status.url
+  revisionPath: .status.revision
+  template:
+    apiVersion: source.toolkit.fluxcd.io/v1beta1
+    kind: GitRepository
+    metadata:
+      name: $(workload.metadata.name)$-source
+    spec:
+      interval: 1m
+      url: $(workload.spec.source.git.url)$
+      ref:
+        branch: $(workload.spec.source.git.ref)$

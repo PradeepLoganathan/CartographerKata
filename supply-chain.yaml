@@ -1,0 +1,33 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterSupplyChain
+metadata:
+  name: dotnet-app-supply-chain
+spec:
+  selector:
+    app: dotnet-app
+  resources:
+    - name: source-provider
+      templateRef:
+        kind: ClusterSourceTemplate
+        name: git-source-template
+    - name: image-builder
+      templateRef:
+        kind: ClusterImageTemplate
+        name: docker-build-template
+      sources:
+        - resource: source-provider
+          name: git
+    - name: test-runner
+      templateRef:
+        kind: ClusterTemplate
+        name: unit-test-template
+      images:
+        - resource: image-builder
+          name: image
+    - name: app-deployer
+      templateRef:
+        kind: ClusterConfigTemplate
+        name: deployment-template
+      images:
+        - resource: image-builder
+          name: image

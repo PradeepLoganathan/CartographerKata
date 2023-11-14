@@ -1,0 +1,21 @@
+apiVersion: carto.run/v1alpha1
+kind: ClusterImageTemplate
+metadata:
+  name: docker-build-template
+spec:
+  imagePath: .status.latestImage
+  template:
+    apiVersion: build.kpack.io/v1alpha1
+    kind: Image
+    metadata:
+      name: $(workload.metadata.name)$-image
+    spec:
+      tag: clstrappsrepo.azurecr.io/$(workload.metadata.name)$:latest
+      serviceAccount: builder-sa
+      source:
+        git:
+          url: $(sources.git.url)$
+          revision: $(sources.git.revision)$
+      builder:
+        kind: ClusterBuilder
+        name: dotnet-cluster-builder
