@@ -1,15 +1,12 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: my-dotnet-app
+  name: my-simple-app
   labels:
-    app: dotnet-app
+    app: simple-app
 spec:
   source:
-    git:
-      url: "https://github.com/PradeepLoganathan/AccuWeather.git"
+    git: 
+      url: "https://github.com/PradeepLoganathan/AccuWeather.git" # Replace with your repository URL
       ref:
-        branch: main
-  params:
-    - name: image
-      value: "clstrappsrepo.azurecr.io/my-dotnet-app:latest"
+        branch: "main"

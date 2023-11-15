@@ -10,7 +10,7 @@ spec:
     metadata:
       name: $(workload.metadata.name)$-image
     spec:
-      tag: clstrappsrepo.azurecr.io/$(workload.metadata.name)$:latest
+      tag: clstrappsrepo.azurecr.io/$(workload.metadata.name)$
       serviceAccount: builder-sa
       source:
         git:

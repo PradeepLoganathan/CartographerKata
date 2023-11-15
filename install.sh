@@ -1,3 +1,5 @@
+# Installing the necessary prerequisites
+## install Cert manager
 CERT_MANAGER_VERSION=1.5.3
 
 kapp deploy --yes -a cert-manager \
@@ -14,6 +16,17 @@ kubectl apply -f https://github.com/vmware-tanzu/cartographer/releases/v0.0.7/do
 
 
 kubectl get pods -n cartographer-system
+
+
+## install fluxcd
+
+flux bootstrap github \
+  --owner=PradeepLoganathan \
+  --repository=AccuWeather \
+  --branch=main \
+  --path=./clusters/kataclstr \
+  --personal
+
 
 
 

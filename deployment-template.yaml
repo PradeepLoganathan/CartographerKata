@@ -3,12 +3,12 @@ kind: ClusterConfigTemplate
 metadata:
   name: deployment-template
 spec:
+  configPath: .status.conditions[?(@.type=="Ready")].status
   template:
     apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: $(workload.metadata.name)$
-      namespace: default
     spec:
       selector:
         matchLabels:
@@ -24,16 +24,16 @@ spec:
               image: $(sources.image.url)$
               ports:
                 - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: $(workload.metadata.name)$-service
-  namespace: default
-spec:
-  selector:
-    app: $(workload.metadata.name)$
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+                
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: my-service
+    spec:
+      selector:
+        app: $(workload.metadata.name)$
+      ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 80

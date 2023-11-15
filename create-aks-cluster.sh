@@ -25,10 +25,15 @@ az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${CLUSTER_NAME}
 
 POWERSTATE=$(az aks show \
 	--resource-group "$RESOURCE_GROUP" \
-	--name "$CLUSTER" \
+	--name "$CLUSTER_NAME" \
 	--query "powerState.code" -o tsv)
     
 az aks stop \
 		--resource-group ${RESOURCE_GROUP} \
 		--name ${CLUSTER_NAME} \
 		--no-wait
+
+az aks start \
+		--resource-group ${RESOURCE_GROUP} \
+		--name ${CLUSTER_NAME}
+		
